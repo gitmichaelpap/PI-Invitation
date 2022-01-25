@@ -1,10 +1,10 @@
 import React from 'react';
 import App from '~/containers/App';
 
-const Home = () => (
+const Contact = () => (
     <App>
-        <h1>Home</h1>
+        <h1>Contact</h1>
     </App>
 );
 
-export default Home;
+export default Contact;

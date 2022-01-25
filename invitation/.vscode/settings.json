@@ -1,0 +1,4 @@
+{
+    "prettier.trailingComma": "none",
+    "javascript.preferences.importModuleSpecifier": "non-relative"
+}
