@@ -4,7 +4,7 @@
     "rules": {
         "react-hooks/exhaustive-deps": "warn",
         "react/react-in-jsx-scope": "off",
-        "comma-dangle": ["error", "never"],
+        // "comma-dangle": ["error", "never"],
         "object-curly-newline": ["error", { "consistent": true, "minProperties": 7 }],
         "no-alert": "error",
         "no-console": "warn"
