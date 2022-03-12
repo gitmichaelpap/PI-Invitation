@@ -1,10 +1,10 @@
 import React from 'react';
 import App from '~/containers/App';
 
-const Invitation = () => (
+const Contact = () => (
     <App>
-        <h1>Invitation</h1>
+        <h1>Contact</h1>
     </App>
 );
 
-export default Invitation;
+export default Contact;

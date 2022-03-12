@@ -1,67 +1,28 @@
-import * as React from 'react';
-import ListItem from '@mui/material/ListItem';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import PeopleIcon from '@mui/icons-material/People';
-import LogoutIcon from '@mui/icons-material/Logout';
-import HomeIcon from '@mui/icons-material/Home';
-import Divider from '@mui/material/Divider';
-import ImageAspectRatioIcon from '@mui/icons-material/ImageAspectRatio';
-import { useNavigate } from 'react-router-dom';
+import React from 'react';
+import { Link } from 'react-router-dom';
 
 import './Menu.css';
 
-export default function Menu() {
-    let navigate = useNavigate();
+const Menu = () => (
+    <nav class="app-menu">
+        <ul className="app-menu__list">
+            <li className="app-menu__item">
+                <Link className="app-menu__link" to="/">
+                    Home
+                </Link>
+            </li>
+            <li className="app-menu__item">
+                <Link className="app-menu__link" to="/contact">
+                    Contact
+                </Link>
+            </li>
+            <li className="app-menu__item">
+                <Link className="app-menu__link" to="/about">
+                    About
+                </Link>
+            </li>
+        </ul>
+    </nav>
+);
 
-    return (
-        <div>
-            <ListItem button>
-                <ListItemIcon>
-                    <HomeIcon />
-                </ListItemIcon>
-                <ListItemText
-                    onClick={() => {
-                        navigate('/Home');
-                    }}
-                    primary="Home"
-                />
-            </ListItem>
-            <ListItem button>
-                <ListItemIcon>
-                    <ImageAspectRatioIcon />
-                </ListItemIcon>
-                <ListItemText
-                    onClick={() => {
-                        navigate('/Invitation');
-                    }}
-                    primary="Convite"
-                />
-            </ListItem>
-            <ListItem button>
-                <ListItemIcon>
-                    <PeopleIcon />
-                </ListItemIcon>
-                <ListItemText
-                    onClick={() => {
-                        navigate('/Guests');
-                    }}
-                    primary="Convidados"
-                />
-            </ListItem>
-            <Divider />
-            <ListItem button>
-                <ListItemIcon>
-                    <LogoutIcon />
-                </ListItemIcon>
-                <ListItemText
-                    onClick={() => {
-                        //TODO Deslogar
-                        navigate('/Login');
-                    }}
-                    primary="Sair"
-                />
-            </ListItem>
-        </div>
-    );
-}
+export default Menu;
