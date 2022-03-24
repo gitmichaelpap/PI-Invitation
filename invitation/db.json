@@ -1,0 +1,32 @@
+{
+  "guests": [
+    {
+      "guest": "Carol",
+      "qrcode": 1,
+      "host": "fiance",
+      "confirmation": false,
+      "id": 2
+    },
+    {
+      "guest": "Raphael G",
+      "qrcode": 1,
+      "host": "couple",
+      "confirmation": false,
+      "id": 3
+    },
+    {
+      "guest": "Joao",
+      "qrcode": 1,
+      "host": "fiance",
+      "confirmation": false,
+      "id": 4
+    },
+    {
+      "guest": "Pedro",
+      "qrcode": 1,
+      "host": "fiancee",
+      "confirmation": false,
+      "id": 5
+    }
+  ]
+}

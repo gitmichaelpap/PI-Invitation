@@ -1,4 +1,4 @@
-import http from "../http-common";
+import Http from "~/config/Http";
 
 class UploadFilesService {
   upload(file, uploadProgress) {
@@ -8,7 +8,7 @@ class UploadFilesService {
 
     console.log(file);
 
-    return http.post("/upload", formData, {
+    return Http.post("/upload", formData, {
       headers: {
         "Content-Type": "multipart/form-data",
       },
@@ -17,7 +17,7 @@ class UploadFilesService {
   }
 
   getFiles() {
-    return http.get("/upload-files");
+    return Http.get("/upload-files");
   }
 }
 
