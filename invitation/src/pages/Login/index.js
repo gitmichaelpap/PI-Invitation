@@ -21,23 +21,18 @@ const theme = createTheme();
 export default function Login() {
     let navigate = useNavigate();
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
 
         const data = new FormData(event.currentTarget);
-
-        // console.log({
-        //     email: data.get('email'),
-        //     password: data.get('password'),
-        // });
 
         const login = {
             email: data.get('email'),
             password: data.get('password'),
         };
-
-        const resp = Http.getLogin(login);
-
+        
+        const resp = await Http.getLogin(login);
+        
         resp && navigate('/home');
     };
 
@@ -89,7 +84,7 @@ export default function Login() {
                             Entrar
                         </Typography>
                         <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
-                            <TextField margin="normal" required fullWidth id="email" label="Email" name="email" autoComplete="email" autoFocus />
+                            <TextField margin="normal" required fullWidth id="email" label="Email" name="email" autoComplete="email" defaultValue='testepi@testepi.com.br' autoFocus />
                             <TextField
                                 margin="normal"
                                 required
@@ -99,17 +94,18 @@ export default function Login() {
                                 type="password"
                                 id="password"
                                 autoComplete="current-password"
+                                defaultValue='teste'
                             />
-                            <FormControlLabel control={<Checkbox value="remember" color="primary" />} label="Lembrar-me" />
+                            {/* <FormControlLabel control={<Checkbox value="remember" color="primary" />} label="Lembrar-me" /> */}
                             <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
                                 Entrar
                             </Button>
                             <Grid container>
-                                <Grid item xs>
+                                {/* <Grid item xs>
                                     <Link href="/" variant="body2">
                                         Esqueci minha senha
                                     </Link>
-                                </Grid>
+                                </Grid> */}
                                 <Grid item xs>
                                     <Link href="/Register" variant="body2">
                                         Não possui uma conta? Cadastre-se

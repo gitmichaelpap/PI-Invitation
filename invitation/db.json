@@ -29,13 +29,20 @@
       "id": 5
     }
   ],
-  
   "login": [
     {
-      "name": "Michael P",
-      "email": "teste@123.com.br",
-      "password": "teste",
+      "fiancee": "Michael P",
+      "fiance": "Carol A",
+      "email": "michael@michael.com",
+      "password": "123",
       "id": 1
+    },
+    {
+      "fiancee": "Teste PI Noiva",
+      "fiance": "Teste PI Noivo",
+      "email": "testepi@testepi.com.br",
+      "password": "teste",
+      "id": 2
     }
   ]
 }

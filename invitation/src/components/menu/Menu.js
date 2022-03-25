@@ -22,7 +22,7 @@ export default function Menu() {
                 </ListItemIcon>
                 <ListItemText
                     onClick={() => {
-                        navigate('/Home');
+                        navigate('/home');
                     }}
                     primary="Home"
                 />
@@ -33,7 +33,7 @@ export default function Menu() {
                 </ListItemIcon>
                 <ListItemText
                     onClick={() => {
-                        navigate('/Invitation');
+                        navigate('/invitation');
                     }}
                     primary="Convite"
                 />
@@ -44,7 +44,7 @@ export default function Menu() {
                 </ListItemIcon>
                 <ListItemText
                     onClick={() => {
-                        navigate('/Guests');
+                        navigate('/guests');
                     }}
                     primary="Convidados"
                 />
@@ -57,7 +57,7 @@ export default function Menu() {
                 <ListItemText
                     onClick={() => {
                         //TODO Deslogar
-                        navigate('/Login');
+                        navigate('/login');
                     }}
                     primary="Sair"
                 />

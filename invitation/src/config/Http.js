@@ -12,10 +12,10 @@ export default class Http {
     //Login --- Inicio
     
     static getLogin = (login) => {
-        return api.get(`/login?email=${login.email}`)
+        return api.get(`/login?email=${login.email}&&password=${login.password}`)
             .then(function (response) {
                 console.log(response);
-                return true;
+                return !!response.data.length
             })
             .catch(function (error) {
                 console.error(error);

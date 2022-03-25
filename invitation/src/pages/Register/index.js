@@ -10,18 +10,28 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { useNavigate } from 'react-router-dom';
+import Http from '~/config/Http';
 
 const theme = createTheme();
 
 export default function Register() {
-    const handleSubmit = (event) => {
+    let navigate = useNavigate();
+
+    const handleSubmit = async (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
-        // eslint-disable-next-line no-console
-        console.log({
+
+        const login = {
+            fiancee: data.get('name-fiancee'),
+            fiance: data.get('name-fiance'),
             email: data.get('email'),
             password: data.get('password'),
-        });
+        };
+        
+        const resp = await Http.createLogin(login);
+        
+        resp && navigate('/login');
     };
 
     return (
@@ -43,7 +53,10 @@ export default function Register() {
                     <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
                         <Grid container spacing={2}>
                             <Grid item xs={24} sm={12}>
-                                <TextField autoComplete="given-name" name="name" required fullWidth id="name" label="Nome" autoFocus />
+                                <TextField autoComplete="given-name" name="name-fiancee" required fullWidth id="name-fiancee" label="Nome da Noiva" autoFocus />
+                            </Grid>
+                            <Grid item xs={24} sm={12}>
+                                <TextField autoComplete="given-name" name="name-fiance" required fullWidth id="name-fiance" label="Nome do Noivo" autoFocus />
                             </Grid>
                             <Grid item xs={12}>
                                 <TextField required fullWidth id="email" label="Email" name="email" autoComplete="email" />
@@ -65,7 +78,7 @@ export default function Register() {
                         </Button>
                         <Grid container justifyContent="flex-end">
                             <Grid item>
-                                <Link href="/Login" variant="body2">
+                                <Link href="/login" variant="body2">
                                     Já possui uma conta? Entre
                                 </Link>
                             </Grid>

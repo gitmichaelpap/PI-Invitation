@@ -12,11 +12,11 @@ const Routes = () => (
     <BrowserRouter>
         <ReactRoutes>
             <Route path="/" element={<Login />} />
-            <Route path="/Login" element={<Login />} />
-            <Route path="/Register" element={<Register />} />
-            <Route path="/Home" element={<Home />} />
-            <Route path="/Invitation" element={<Invitation />} />
-            <Route path="/Guests" element={<Guests />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/home" element={<Home />} />
+            <Route path="/invitation" element={<Invitation />} />
+            <Route path="/guests" element={<Guests />} />
             <Route path="*" element={<NotFound />} />
         </ReactRoutes>
     </BrowserRouter>
