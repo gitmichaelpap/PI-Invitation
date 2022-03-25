@@ -17,7 +17,7 @@ class UploadFilesService {
   }
 
   getFiles() {
-    return Http.get("/upload-files");
+    return Http.getGuest("/upload-files");
   }
 }
 

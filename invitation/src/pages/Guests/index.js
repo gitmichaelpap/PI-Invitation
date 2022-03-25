@@ -24,16 +24,16 @@ export default function DataTable() {
     }, [])
 
     const getGuests = async () => {
-        const guests = await Http.getAll();
+        const guests = await Http.getAllGuests();
         setRows(guests.data);
     }
 
     const createGuest = async (newGuest) => {
-        await Http.create(newGuest);
+        await Http.createGuest(newGuest);
     }
 
     const updateGuest = async (guest) => {
-        await Http.update(guest.id, guest);
+        await Http.updateGuest(guest.id, guest);
     }
 
     const editUser = async (guest) => {
@@ -43,7 +43,7 @@ export default function DataTable() {
     }
 
     const deleteUser = async (guest) => {
-        await Http.remove(guest.id);
+        await Http.removeGuest(guest.id);
         getGuests();
     }
 

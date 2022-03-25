@@ -28,5 +28,14 @@
       "confirmation": false,
       "id": 5
     }
+  ],
+  
+  "login": [
+    {
+      "name": "Michael P",
+      "email": "teste@123.com.br",
+      "password": "teste",
+      "id": 1
+    }
   ]
 }

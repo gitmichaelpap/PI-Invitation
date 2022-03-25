@@ -14,6 +14,8 @@ import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
 
+import Http from '~/config/Http';
+
 const theme = createTheme();
 
 export default function Login() {
@@ -21,15 +23,22 @@ export default function Login() {
 
     const handleSubmit = (event) => {
         event.preventDefault();
+
         const data = new FormData(event.currentTarget);
-        // eslint-disable-next-line no-console
-        console.log({
+
+        // console.log({
+        //     email: data.get('email'),
+        //     password: data.get('password'),
+        // });
+
+        const login = {
             email: data.get('email'),
             password: data.get('password'),
-        });
+        };
 
-        // TODO Validar login e chamar o Navigate
-        navigate('/home');
+        const resp = Http.getLogin(login);
+
+        resp && navigate('/home');
     };
 
     return (

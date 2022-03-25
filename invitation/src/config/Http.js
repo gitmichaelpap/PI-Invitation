@@ -8,7 +8,38 @@ const api = axios.create({
 });
 
 export default class Http {
-    static getAll = () => {
+
+    //Login --- Inicio
+    
+    static getLogin = (login) => {
+        return api.get(`/login?email=${login.email}`)
+            .then(function (response) {
+                console.log(response);
+                return true;
+            })
+            .catch(function (error) {
+                console.error(error);
+                return false;
+            });
+    };
+    
+    static createLogin = (user) => {
+    return api.post("/login", user)
+        .then(function (response) {
+            console.log(response);
+            return true;
+        })
+        .catch(function (error) {
+            console.error(error);
+            return false;
+        });
+    };
+    
+    //Login --- Inicio
+
+    //Guests --- Inicio
+
+    static getAllGuests = () => {
     return api.get("/guests")
         .then(function (response) {
             console.log(response);
@@ -19,7 +50,7 @@ export default class Http {
         });
     };
 
-    static get = id => {
+    static getGuest = id => {
     return api.get(`/guests/${id}`)
         .then(function (response) {
             console.log(response);
@@ -30,7 +61,7 @@ export default class Http {
         });
     };
 
-    static create = (data) => {
+    static createGuest = (data) => {
     return api.post("/guests", data)
         .then(function (response) {
             console.log(response);
@@ -41,7 +72,7 @@ export default class Http {
         });
     };
 
-    static update = (id, data) => {
+    static updateGuest = (id, data) => {
     return api.put(`/guests/${id}`, data)
         .then(function (response) {
             console.log(response);
@@ -52,7 +83,7 @@ export default class Http {
         });
     };
 
-    static remove = (id) => {
+    static removeGuest = (id) => {
     return api.delete(`/guests/${id}`)
         .then(function (response) {
             console.log(response);
@@ -63,7 +94,7 @@ export default class Http {
         });
     };
 
-    static removeAll = () => {
+    static removeAllGuests = () => {
     return api.delete(`/guests`)
         .then(function (response) {
             console.log(response);
@@ -73,6 +104,8 @@ export default class Http {
             console.error(error);
         });
     };
+
+    //Guest --- Fim
 
     static findByTitle = title => {
     return api.get(`/guests?title=${title}`)

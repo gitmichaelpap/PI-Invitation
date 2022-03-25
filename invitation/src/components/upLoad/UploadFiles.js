@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import LinearProgress from '@mui/material/LinearProgress';
 import {withStyles } from '@material-ui/core';
-import UploadService from "../services/UploadService";
+import UploadService from "../../services/UploadService";
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
