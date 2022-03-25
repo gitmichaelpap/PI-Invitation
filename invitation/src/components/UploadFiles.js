@@ -6,6 +6,10 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import SendIcon from '@mui/icons-material/Send';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import { CardActionArea } from '@mui/material';
 
 const BorderLinearProgress = withStyles((theme) => ({
   root: {
@@ -34,7 +38,7 @@ export default class UploadFiles extends Component {
       message: "",
       isError: false,
       image: "",
-      customImage: "../../icone_usuario.png",
+      customImage: "../../modelo.jpg",
     };
 
   }
@@ -152,9 +156,24 @@ export default class UploadFiles extends Component {
           Preview:
         </Typography>
 
-        {image ? <img src={URL.createObjectURL(image)} alt="Invite" width="800" height="600" /> : <img src={customImage} alt="Invite" width="150" height="150" />}<br /><br />
-
-      </div >
+        <div className="preview-invite">
+          <Card sx={{ maxWidth: 1000 }}>
+            <CardActionArea>
+                <CardMedia
+                  component="img"
+                  height="800"
+                  image={ image ? URL.createObjectURL(image) : customImage}
+                  alt="Invitation"
+                />
+                <CardContent>
+                  <Typography gutterBottom variant="h5" component="div">
+                    Invitation
+                  </Typography>
+                </CardContent>
+            </CardActionArea>
+          </Card>
+        </div>
+      </div>
     );
   }
 }

@@ -20,7 +20,6 @@
     max-width: 480px;
     vertical-align: middle;
     color: green;
-    font-weight: bold;
 }
   
 .list-group {
@@ -33,7 +32,6 @@
 }
   
 .upload-message {
-    font-weight: bold;
     color: #63A84E;
     margin-top: 20px !important;
 }
@@ -44,4 +42,8 @@
   
 .btn-choose {
     margin-right: 10px !important;
+}
+
+.preview-invite {
+    margin-top: 18px;
 }
