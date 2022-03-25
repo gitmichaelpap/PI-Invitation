@@ -8,7 +8,7 @@ class UploadFilesService {
 
     console.log(file);
 
-    return http.post("/upload", formData, {
+    return http.post("/upload-image", formData, {
       headers: {
         "Content-Type": "multipart/form-data",
       },
@@ -16,9 +16,6 @@ class UploadFilesService {
     });
   }
 
-  getFiles() {
-    return http.get("/upload-files");
-  }
 }
 
 export default new UploadFilesService();

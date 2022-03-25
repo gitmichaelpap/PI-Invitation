@@ -5,8 +5,7 @@ import UploadService from "../services/UploadService";
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import ListItem from '@mui/material/ListItem';
-import PhotoCamera from '@mui/icons-material/PhotoCamera';
+import SendIcon from '@mui/icons-material/Send';
 
 const BorderLinearProgress = withStyles((theme) => ({
   root: {
@@ -34,25 +33,27 @@ export default class UploadFiles extends Component {
       progress: 0,
       message: "",
       isError: false,
-      fileInfos: [],
+      image: "",
+      customImage: "../../icone_usuario.png",
     };
-  }
 
-  componentDidMount() {
-    UploadService.getFiles().then((response) => {
-      this.setState({
-        fileInfos: response.data,
-      });
-    });
   }
 
   selectFile(event) {
     this.setState({
       selectedFiles: event.target.files,
+      image: event.target.files[0],
+    });
+  }
+
+  clear() {
+    this.setState({
+      progress: 0,
     });
   }
 
   upload() {
+
     let currentFile = this.state.selectedFiles[0];
 
     this.setState({
@@ -67,15 +68,11 @@ export default class UploadFiles extends Component {
     })
       .then((response) => {
         this.setState({
-          message: response.data.message,
-          isError: false
+          progress: 100,
+          message: "Upload the file success!",
+          isError: false,
         });
-        return UploadService.getFiles();
-      })
-      .then((files) => {
-        this.setState({
-          fileInfos: files.data,
-        });
+        return;
       })
       .catch(() => {
         this.setState({
@@ -97,8 +94,9 @@ export default class UploadFiles extends Component {
       currentFile,
       progress,
       message,
-      fileInfos,
-      isError
+      isError,
+      image, 
+      customImage
     } = this.state;
     
     return (
@@ -120,11 +118,13 @@ export default class UploadFiles extends Component {
             name="btn-upload"
             style={{ display: 'none' }}
             type="file"
+            accept="image/*"
             onChange={this.selectFile} />
           <Button
             className="btn-choose"
             variant="outlined"
-            component="span" >
+            component="span"
+            onClick={this.clear} >
              Choose File
           </Button>
         </label>
@@ -139,8 +139,9 @@ export default class UploadFiles extends Component {
           variant="contained"
           component="span"
           disabled={!selectedFiles}
-          onClick={this.upload}>
-          Upload
+          onClick={this.upload}
+          endIcon={<SendIcon/>}>
+          SEND
         </Button>
 
         <Typography variant="subtitle2" className={`upload-message ${isError ? "error" : ""}`}>
@@ -148,19 +149,10 @@ export default class UploadFiles extends Component {
         </Typography>
 
         <Typography variant="h6" className="list-header">
-          List of Files Imported
+          Preview:
         </Typography>
 
-        <ul className="list-group">
-          {fileInfos &&
-            fileInfos.map((file, index) => (
-              <ListItem
-                divider
-                key={index}>
-                <a href={file.url}>{file.name}</a>
-              </ListItem>
-            ))}
-        </ul>
+        {image ? <img src={URL.createObjectURL(image)} alt="Invite" width="800" height="600" /> : <img src={customImage} alt="Invite" width="150" height="150" />}<br /><br />
 
       </div >
     );
