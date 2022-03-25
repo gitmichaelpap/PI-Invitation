@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { FormProvider, useForm } from 'react-hook-form';
 import { DataGrid, GridActionsCellItem } from '@mui/x-data-grid';
 import App from '~/containers/App';
 import EditIcon from '@mui/icons-material/Edit';
@@ -7,50 +8,62 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-// import Link from '@mui/material/Link';
-// import SelectInput from '@mui/material/Select/SelectInput';
 import { FormControlLabel, Radio, RadioGroup } from '@mui/material';
+import { Input } from '@material-ui/core';
 
-const initialRows = [
-    { id: 1, guest: 'Snow', qrcode: 1, host: 'Noivo', confirmation: false },
-    { id: 2, guest: 'Lannister', qrcode: 2, host: 'Noivo', confirmation: false },
-    { id: 3, guest: 'Lannister', qrcode: 3, host: 'Noivo', confirmation: false },
-    { id: 4, guest: 'Stark', qrcode: 4, host: 'Noivo', confirmation: false },
-    { id: 5, guest: 'Targaryen', qrcode: 5, host: 'Noivo', confirmation: false },
-    { id: 6, guest: 'Melisandre', qrcode: 6, host: 'Noiva', confirmation: true },
-    { id: 7, guest: 'Clifford', qrcode: 7, host: 'Noiva', confirmation: true },
-    { id: 8, guest: 'Frances', qrcode: 8, host: 'Noiva', confirmation: true },
-    { id: 9, guest: 'Roxie', qrcode: 9, host: 'Noiva', confirmation: true },
-    { id: 10, guest: 'Snow', qrcode: 1, host: 'Noivo', confirmation: false },
-    { id: 20, guest: 'Lannister', qrcode: 2, host: 'Noivo', confirmation: false },
-    { id: 30, guest: 'Lannister', qrcode: 3, host: 'Noivo', confirmation: false },
-    { id: 40, guest: 'Stark', qrcode: 4, host: 'Noivo', confirmation: false },
-    { id: 50, guest: 'Targaryen', qrcode: 5, host: 'Noivo', confirmation: false },
-    { id: 60, guest: 'Melisandre', qrcode: 6, host: 'Noiva', confirmation: true },
-    { id: 70, guest: 'Clifford', qrcode: 7, host: 'Noiva', confirmation: true },
-    { id: 80, guest: 'Frances', qrcode: 8, host: 'Noiva', confirmation: true },
-    { id: 90, guest: 'Roxie', qrcode: 9, host: 'Noiva', confirmation: true },
-];
+import Http from '~/config/Http';
 
 export default function DataTable() {
-    const [rows, setRows] = React.useState(initialRows);
+    const methods = useForm();
 
-    const editUser = React.useCallback(
-        (id) => () => {
-            //TODO Edit Guest
-            // setRows((prevRows) => prevRows.map((row) => (row.id === id ? { ...row, isAdmin: !row.isAdmin } : row)));
-        },
-        []
-    );
+    const [rows, setRows] = React.useState([]);
+    const [value, setValue] = React.useState('');
 
-    const deleteUser = React.useCallback(
-        (id) => () => {
-            setTimeout(() => {
-                setRows((prevRows) => prevRows.filter((row) => row.id !== id));
-            });
-        },
-        []
-    );
+    React.useEffect(() => {
+        getGuests();
+    }, [])
+
+    const getGuests = async () => {
+        const guests = await Http.getAll();
+        setRows(guests.data);
+    }
+
+    const createGuest = async (newGuest) => {
+        await Http.create(newGuest);
+    }
+
+    const updateGuest = async (guest) => {
+        await Http.update(guest.id, guest);
+    }
+
+    const editUser = async (guest) => {
+        methods.setValue('id', guest.id);
+        methods.setValue('guest', guest.guest);
+        setValue(guest.host);
+    }
+
+    const deleteUser = async (guest) => {
+        await Http.remove(guest.id);
+        getGuests();
+    }
+
+    const onSubmit = async (values) => {
+        // TODO Retirar o qrcode e confirmation do onSubmit, pois serão validados pelo back
+        let newGuest = { 
+            guest: values?.guest, 
+            qrcode: 1, 
+            host: values?.host,
+            confirmation: false 
+        };
+        
+        if(!!values?.id) newGuest.id = values?.id;
+        
+        newGuest?.id ? await updateGuest(newGuest) : await createGuest(newGuest);
+
+        methods.setValue('guest', '');
+        setValue('')
+        getGuests();
+    };
 
     const columns = React.useMemo(
         () => [
@@ -67,51 +80,44 @@ export default function DataTable() {
                 minWidth: 40,
                 maxWidth: 100,
                 getActions: (params) => [
-                    <GridActionsCellItem icon={<DeleteIcon />} label="Deletar" onClick={deleteUser(params.id)} />,
-                    <GridActionsCellItem icon={<EditIcon />} label="Editar" onClick={editUser(params.id)} />,
+                    <GridActionsCellItem icon={<DeleteIcon />} label="Deletar" onClick={() => deleteUser(params)} />,
+                    <GridActionsCellItem icon={<EditIcon />} label="Editar" onClick={() => editUser(params.row)} />,
                 ],
             },
         ],
         [deleteUser, editUser]
     );
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        const data = new FormData(event.currentTarget);
-        // console.log({
-        //     guest: data.get('guest'),
-        //     host: data.get('host'),
-        // });
-        var initRows = initialRows.concat({ id: 1000, guest: `${data.get('guest')}`, qrcode: 1, host: `${data.get('host')}`, confirmation: false });
-        setRows(initRows);
-    };
-
     return (
         <App>
-            <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
-                <Grid
-                    container
-                    spacing={1}
-                    sx={{
-                        mt: 3,
-                        display: 'flex',
-                        flexWrap: 'wrap',
-                        justifyContent: 'space-around',
-                        alignItems: 'center',
-                        alignContent: 'center',
-                    }}
-                >
-                    <TextField required name="guest" label="Convidado" />
-                    <RadioGroup required aria-labelledby="demo-radio-buttons-group-label" defaultValue="fiancee" name="host" row>
-                        <FormControlLabel value="fiancee" control={<Radio />} label="Noiva" />
-                        <FormControlLabel value="fiance" control={<Radio />} label="Noivo" />
-                        <FormControlLabel value="couple" control={<Radio />} label="Casal" />
-                    </RadioGroup>
-                    <Button type="submit" variant="contained" sx={{ mt: 3, mb: 2 }}>
-                        Adicionar
-                    </Button>
-                </Grid>
-            </Box>
+            <FormProvider {...methods}>
+                <Box component="form" onSubmit={methods.handleSubmit(onSubmit)} sx={{ mt: 3 }}>
+                    <Grid
+                        container
+                        spacing={1}
+                        sx={{
+                            mt: 3,
+                            display: 'flex',
+                            flexWrap: 'wrap',
+                            justifyContent: 'space-around',
+                            alignItems: 'center',
+                            alignContent: 'center',
+                        }}
+                    >
+                        <TextField name="guest" label="Convidado"  {...methods.register('guest')} />
+                        <RadioGroup aria-labelledby="demo-radio-buttons-group-label" name="host" row value={value} onChange={(e) => setValue(e.target.value)}>
+                            <FormControlLabel value="fiancee" control={<Radio />} label="Noiva" {...methods.register('host')}/>
+                            <FormControlLabel value="fiance" control={<Radio />} label="Noivo" {...methods.register('host')}/>
+                            <FormControlLabel value="couple" control={<Radio />} label="Casal" {...methods.register('host')}/>
+                        </RadioGroup>
+                        <Input type="hidden" name="id" label="id" {...methods.register('id')} />
+                        <Button type="submit" variant="contained" sx={{ mt: 3, mb: 2 }}>
+                            Adicionar
+                        </Button>
+                    </Grid>
+                </Box>
+            </FormProvider>
+
             <div style={{ height: 650, width: '100%' }}>
                 <DataGrid rows={rows} columns={columns} pageSize={10} rowsPerPageOptions={[15]} />
             </div>
