@@ -25,7 +25,7 @@ export default function DataTable() {
 
     const getGuests = async () => {
         const guests = await Http.getAllGuests();
-        setRows(guests.data);
+        setRows(guests.data?.reverse());
     }
 
     const createGuest = async (newGuest) => {

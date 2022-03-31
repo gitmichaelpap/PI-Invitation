@@ -1,5 +1,4 @@
-import React from 'react';
-
+import React, { useContext }  from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -13,13 +12,14 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
-
+import { UserContext } from '~/common/contexts/User';
 import Http from '~/config/Http';
 
 const theme = createTheme();
 
 export default function Login() {
     let navigate = useNavigate();
+    const { setEngaged, setWeddingDay, setDtRegister } = useContext(UserContext);
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -32,8 +32,13 @@ export default function Login() {
         };
         
         const resp = await Http.getLogin(login);
-        
-        resp && navigate('/home');
+
+        if(resp){
+            setEngaged(`${resp?.fiancee} & ${resp?.fiance}`);
+            setWeddingDay(new Date(resp?.weddingDay));
+            setDtRegister(new Date(resp?.dtRegister));
+            navigate('/home');
+        };
     };
 
     return (
@@ -84,7 +89,17 @@ export default function Login() {
                             Entrar
                         </Typography>
                         <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
-                            <TextField margin="normal" required fullWidth id="email" label="Email" name="email" autoComplete="email" defaultValue='testepi@testepi.com.br' autoFocus />
+                            <TextField 
+                            margin="normal" 
+                            required 
+                            fullWidth 
+                            id="email" 
+                            label="Email" 
+                            name="email" 
+                            autoComplete="email" 
+                            defaultValue='testepi@testepi.com.br' 
+                            autoFocus 
+                            />
                             <TextField
                                 margin="normal"
                                 required

@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import LinearProgress from '@mui/material/LinearProgress';
 import {withStyles } from '@material-ui/core';
-import UploadService from "../../services/UploadService";
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -10,6 +9,7 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import { CardActionArea } from '@mui/material';
+import Http from "~/config/Http";
 
 const BorderLinearProgress = withStyles((theme) => ({
   root: {
@@ -53,6 +53,8 @@ export default class UploadFiles extends Component {
   clear() {
     this.setState({
       progress: 0,
+      currentFile: false,
+      message: "",
     });
   }
 
@@ -65,7 +67,7 @@ export default class UploadFiles extends Component {
       currentFile: currentFile,
     });
 
-    UploadService.upload(currentFile, (event) => {
+    Http.uploadInvitation(currentFile, (event) => {
       this.setState({
         progress: Math.round((100 * event.loaded) / event.total),
       });
@@ -128,7 +130,7 @@ export default class UploadFiles extends Component {
             className="btn-choose"
             variant="outlined"
             component="span"
-            onClick={this.clear} >
+            onClick={()=> this.clear()} >
              Choose File
           </Button>
         </label>

@@ -17,6 +17,7 @@ import Paper from '@mui/material/Paper';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import Menu from '~/components/menu';
+import { UserContext } from '~/common/contexts/User';
 
 const drawerWidth = 240;
 
@@ -65,6 +66,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 const mdTheme = createTheme();
 
 export default function App({ children }) {
+    const { engaged } = React.useContext(UserContext)
     const [open, setOpen] = React.useState(true);
     const toggleDrawer = () => {
         setOpen(!open);
@@ -92,7 +94,7 @@ export default function App({ children }) {
                             <MenuIcon />
                         </IconButton>
                         <Typography component="h1" variant="h6" color="inherit" noWrap sx={{ flexGrow: 1 }}>
-                            Home
+                            {`Olá ${ engaged }`}
                         </Typography>
                         {/* <IconButton color="inherit">
                             <Badge badgeContent={4} color="secondary">

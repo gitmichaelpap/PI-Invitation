@@ -5,7 +5,6 @@ import UploadFiles from "../../components/upLoad/UploadFiles"
 
 const Invitation = () => (
   <App>
-      <h1>Invitation</h1>
       <UploadFiles />
   </App>
 );

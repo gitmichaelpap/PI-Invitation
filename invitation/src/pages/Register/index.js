@@ -1,3 +1,4 @@
+import React from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -5,6 +6,11 @@ import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
+import DatePicker from '@mui/lab/DatePicker';
+import AdapterDateFns from '@mui/lab/AdapterDateFns';
+import LocalizationProvider from '@mui/lab/LocalizationProvider';
+import { ptBR } from "date-fns/locale";
+// import { ptBR } from '@material-ui/core/locale';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -12,11 +18,18 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
 import Http from '~/config/Http';
+import moment from 'moment';
 
 const theme = createTheme();
 
 export default function Register() {
     let navigate = useNavigate();
+    const [value, setValue] = React.useState(new Date());
+
+    function dateToEN(date)
+    {	
+	    return date.split('/').reverse().join('-');
+    }
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -25,8 +38,10 @@ export default function Register() {
         const login = {
             fiancee: data.get('name-fiancee'),
             fiance: data.get('name-fiance'),
+            weddingDay: moment(dateToEN(data.get('weddingDay'))),
             email: data.get('email'),
             password: data.get('password'),
+            dtRegister: new Date()
         };
         
         const resp = await Http.createLogin(login);
@@ -57,6 +72,19 @@ export default function Register() {
                             </Grid>
                             <Grid item xs={24} sm={12}>
                                 <TextField autoComplete="given-name" name="name-fiance" required fullWidth id="name-fiance" label="Nome do Noivo" autoFocus />
+                            </Grid>
+                            <Grid item xs={24} sm={12}>
+                                <LocalizationProvider  dateAdapter={AdapterDateFns} locale={ptBR}>
+                                    <DatePicker
+                                        label="Dia do Casamento"
+                                        views={['day', 'month', 'year']}
+                                        value={value}
+                                        onChange={(newValue) => {
+                                        setValue(newValue);
+                                        }}
+                                        renderInput={(params) => <TextField fullWidth required autoFocus  name="weddingDay" id="weddingDay" {...params} />}
+                                    />
+                                </LocalizationProvider>
                             </Grid>
                             <Grid item xs={12}>
                                 <TextField required fullWidth id="email" label="Email" name="email" autoComplete="email" />
