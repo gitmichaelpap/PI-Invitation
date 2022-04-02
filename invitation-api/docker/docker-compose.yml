@@ -1,0 +1,12 @@
+version: '3.1'
+  docker-postgres:
+    image: postgres
+    container_name: pg-db
+    environment:
+      POSTGRES_USER: invitation
+      POSTGRES_DB: invitation
+      POSTGRES_PASSWORD: 1234
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./db/initdb:/docker-entrypoint-initdb.d
