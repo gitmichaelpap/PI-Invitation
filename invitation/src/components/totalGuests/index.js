@@ -14,7 +14,6 @@ export default function TotalGuests() {
   const getGuests = async () => {
     let guests = await Http.getAllGuests();
 
-    debugger;
 
     setGuestsTotal(guests.data.length);
 

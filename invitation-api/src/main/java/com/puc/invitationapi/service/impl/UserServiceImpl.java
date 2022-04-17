@@ -61,6 +61,12 @@ public class UserServiceImpl implements UserService {
         throw new UserException(UserException.getConvidadosVinculados());
     }
 
+    @Override
+    public UserDTO login(String email, String password) {
+        Optional<User> userOptional = userRepository.getByEmailAndPassword(email, password);
+        return userOptional.map(UserMapper.MAPPER::fromUser).orElse(null);
+    }
+
     private void validateUserEmail(UserDTO userDTO) {
         Optional<User> userOptional;
         if (userDTO.getId() == null) {

@@ -6,6 +6,8 @@ public class Token {
 
     private String refreshToken;
 
+    private UserDTO user;
+
     public String getAcessToken() {
         return acessToken;
     }
@@ -20,5 +22,13 @@ public class Token {
 
     public void setRefreshToken(String refreshToken) {
         this.refreshToken = refreshToken;
+    }
+
+    public UserDTO getUser() {
+        return user;
+    }
+
+    public void setUser(UserDTO user) {
+        this.user = user;
     }
 }

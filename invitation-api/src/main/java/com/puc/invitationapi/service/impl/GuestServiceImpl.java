@@ -29,7 +29,9 @@ public class GuestServiceImpl implements GuestService {
 
     @Override
     public GuestDTO updateGuest(GuestDTO dto) {
-        return null;
+        Guest guest = GuestMapper.MAPPER.toGuest(dto);
+        guest = guestRepository.save(guest);
+        return GuestMapper.MAPPER.fromGuest(guest);
     }
 
     @Override

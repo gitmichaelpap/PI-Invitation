@@ -13,6 +13,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     Optional<User> getByEmail(String email);
 
+    Optional<User> getByEmailAndPassword(String email, String password);
+
     @Query(value = "select user from User user where user.email = :email and user.id <> :id")
     Optional<User> getByEmailAndNotId(@Param("email") String email,@Param("id") Long id);
 

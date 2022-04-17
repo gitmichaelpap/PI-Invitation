@@ -16,5 +16,7 @@ public interface UserService {
 
     void deleteUserById(Long idUser);
 
+    UserDTO login(String email, String password);
+
 
 }

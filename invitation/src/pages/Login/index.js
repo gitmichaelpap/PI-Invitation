@@ -30,13 +30,14 @@ export default function Login() {
             email: data.get('email'),
             password: data.get('password'),
         };
-        
-        const resp = await Http.getLogin(login);
 
+        const resp = await Http.getLogin(login);
+        console.log(resp);
         if(resp){
-            setEngaged(`${resp?.fiancee} & ${resp?.fiance}`);
-            setWeddingDay(new Date(resp?.weddingDay));
-            setDtRegister(new Date(resp?.dtRegister));
+            localStorage.setItem('user', JSON.stringify(resp?.user));
+            setEngaged(`${resp?.user.fiancee} & ${resp?.user.fiance}`);
+            setWeddingDay(new Date(resp?.user.weddingDay));
+            setDtRegister(new Date(resp?.user.dtRegister));
             navigate('/home');
         };
     };
@@ -89,16 +90,16 @@ export default function Login() {
                             Entrar
                         </Typography>
                         <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
-                            <TextField 
-                            margin="normal" 
-                            required 
-                            fullWidth 
-                            id="email" 
-                            label="Email" 
-                            name="email" 
-                            autoComplete="email" 
-                            defaultValue='testepi@testepi.com.br' 
-                            autoFocus 
+                            <TextField
+                            margin="normal"
+                            required
+                            fullWidth
+                            id="email"
+                            label="Email"
+                            name="email"
+                            autoComplete="email"
+                            defaultValue='admin@gmail.com'
+                            autoFocus
                             />
                             <TextField
                                 margin="normal"
@@ -109,7 +110,7 @@ export default function Login() {
                                 type="password"
                                 id="password"
                                 autoComplete="current-password"
-                                defaultValue='teste'
+                                defaultValue='admin'
                             />
                             {/* <FormControlLabel control={<Checkbox value="remember" color="primary" />} label="Lembrar-me" /> */}
                             <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
