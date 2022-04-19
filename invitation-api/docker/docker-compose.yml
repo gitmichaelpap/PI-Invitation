@@ -12,7 +12,6 @@ services:
 
   postgres-compose:
     image: postgres
-    restart: always
     container_name: pg-compose
     environment:
       POSTGRES_USER: invitation
