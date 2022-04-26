@@ -35,6 +35,7 @@ export default function Login() {
         console.log(resp);
         if(resp){
             localStorage.setItem('user', JSON.stringify(resp?.user));
+            localStorage.setItem('token', resp?.acessToken);
             setEngaged(`${resp?.user.fiancee} & ${resp?.user.fiance}`);
             setWeddingDay(new Date(resp?.user.weddingDay));
             setDtRegister(new Date(resp?.user.dtRegister));

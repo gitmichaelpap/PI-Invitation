@@ -67,6 +67,12 @@ public class UserServiceImpl implements UserService {
         return userOptional.map(UserMapper.MAPPER::fromUser).orElse(null);
     }
 
+    @Override
+    public UserDTO getByEmail(String email) {
+        Optional<User> userOptional = userRepository.getByEmail(email);
+        return userOptional.map(UserMapper.MAPPER::fromUser).orElse(null);
+    }
+
     private void validateUserEmail(UserDTO userDTO) {
         Optional<User> userOptional;
         if (userDTO.getId() == null) {

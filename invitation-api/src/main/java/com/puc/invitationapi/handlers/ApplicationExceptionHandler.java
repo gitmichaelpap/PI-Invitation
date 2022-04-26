@@ -14,6 +14,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.util.ObjectUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -39,6 +40,14 @@ public class ApplicationExceptionHandler extends ResponseEntityExceptionHandler 
         final String mensagemDesenvolvedor = ex.toString();
         List<Error> errors = Collections.singletonList(new Error(mensagemUsuario, mensagemDesenvolvedor));
         return handleExceptionInternal(ex, errors, new HttpHeaders(), HttpStatus.NOT_FOUND, request);
+    }
+
+    @ExceptionHandler(BadCredentialsException.class)
+    public ResponseEntity<Object> handleBadCredentialsException(final RuntimeException ex, WebRequest request) {
+        final String mensagemUsuario = "Credenciais Inválidas";
+        final String mensagemDesenvolvedor = ex.toString();
+        List<Error> errors = Collections.singletonList(new Error(mensagemUsuario, mensagemDesenvolvedor));
+        return handleExceptionInternal(ex, errors, new HttpHeaders(), HttpStatus.UNAUTHORIZED, request);
     }
 
     @ExceptionHandler(DataIntegrityViolationException.class)

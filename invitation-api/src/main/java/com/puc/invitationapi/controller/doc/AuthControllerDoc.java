@@ -25,6 +25,6 @@ public interface AuthControllerDoc {
                     array = @ArraySchema(
                             schema = @Schema(implementation = ApplicationExceptionHandler.Error.class))))
     @Tag(name = "login")
-    ResponseEntity<Token> login(LoginDTO loginDTO);
+    ResponseEntity<Token> login(LoginDTO loginDTO) throws Exception;
 
 }
