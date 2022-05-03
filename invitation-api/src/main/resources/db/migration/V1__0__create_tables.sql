@@ -12,7 +12,7 @@ CREATE TABLE "user"
     CONSTRAINT PK_user PRIMARY KEY ("id")
 );
 
-insert into "user" (fiancee, fiance, wedding_day, data_register, email, password) VALUES ('Admin', 'Admin', now(), now(), 'admin@gmail.com', 'admin');
+insert into "user" (fiancee, fiance, wedding_day, data_register, email, password) VALUES ('Admin', 'Admin', now(), now(), 'admin@gmail.com', '$2a$04$.8Yr00hQqSS9xr4tvlwO1uKHxTkeHLqwqNMcuT3.4tU39wxh0gkzW');
 
 CREATE SEQUENCE guest_id_seq;
 

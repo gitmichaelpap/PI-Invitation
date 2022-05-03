@@ -5,5 +5,6 @@ import com.puc.invitationapi.dto.Token;
 
 public interface AuthService {
 
-    Token login(LoginDTO loginDTO);
+    Token login(LoginDTO loginDTO) throws Exception;
+
 }

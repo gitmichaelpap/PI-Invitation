@@ -35,10 +35,11 @@ export default function Login() {
 
         const resp = await Http.getLogin(login);
         if(resp?.status == 200){
-            localStorage.setItem('user', JSON.stringify(resp?.data?.user));
-            setEngaged(`${resp?.data?.user.fiancee} & ${resp?.data?.user.fiance}`);
-            setWeddingDay(new Date(resp?.data?.user.weddingDay));
-            setDtRegister(new Date(resp?.data?.user.dtRegister));
+            localStorage.setItem('user', JSON.stringify(resp?.user));
+            localStorage.setItem('token', resp?.acessToken);
+            setEngaged(`${resp?.user.fiancee} & ${resp?.user.fiance}`);
+            setWeddingDay(new Date(resp?.user.weddingDay));
+            setDtRegister(new Date(resp?.user.dtRegister));
             navigate('/home');
         }else{
             err(guests?.response?.data[0]?.mensagemUsuario);

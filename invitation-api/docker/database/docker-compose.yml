@@ -1,0 +1,20 @@
+version: '3.1'
+
+services:
+  postgres-compose:
+    image: postgres
+    container_name: pg-compose
+    environment:
+      POSTGRES_USER: invitation
+      POSTGRES_DB: invitation
+      POSTGRES_PASSWORD: 1234
+    ports:
+      - "127.0.0.1:5432:5432"
+    volumes:
+      - ./db/initdb:/docker-entrypoint-initdb.d
+    networks:
+      - commons-api
+
+networks:
+  commons-api:
+    driver: bridge
