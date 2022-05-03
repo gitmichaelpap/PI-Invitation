@@ -3,8 +3,6 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
@@ -21,7 +19,7 @@ const theme = createTheme();
 export default function Login() {
     let navigate = useNavigate();
     const { setEngaged, setWeddingDay, setDtRegister } = useContext(UserContext);
-    const { alert, err, info, success } = MySnackbar()
+    const { err } = MySnackbar()
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -34,16 +32,16 @@ export default function Login() {
         };
 
         const resp = await Http.getLogin(login);
-        if(resp?.status == 200){
-            localStorage.setItem('user', JSON.stringify(resp?.user));
-            localStorage.setItem('token', resp?.acessToken);
-            setEngaged(`${resp?.user.fiancee} & ${resp?.user.fiance}`);
-            setWeddingDay(new Date(resp?.user.weddingDay));
-            setDtRegister(new Date(resp?.user.dtRegister));
+        if(resp?.status === 200){
+            localStorage.setItem('user', JSON.stringify(resp.data?.user));
+            localStorage.setItem('token', resp.data?.acessToken);
+            setEngaged(`${resp.data?.user.fiancee} & ${resp.data?.user.fiance}`);
+            setWeddingDay(new Date(resp.data?.user.weddingDay));
+            setDtRegister(new Date(resp.data?.user.dtRegister));
             navigate('/home');
         }else{
-            err(guests?.response?.data[0]?.mensagemUsuario);
-            resp.response.status == 401 && navigate('/login')
+            err(resp?.response?.data[0]?.mensagemUsuario);
+            resp.response.status === 401 && navigate('/login')
         }
     };
 

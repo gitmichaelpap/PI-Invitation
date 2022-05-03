@@ -3,8 +3,6 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import DatePicker from '@mui/lab/DatePicker';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
@@ -26,7 +24,7 @@ const theme = createTheme();
 export default function Register() {
     let navigate = useNavigate();
     const [value, setValue] = React.useState(new Date());
-    const { alert, err, info, success } = MySnackbar()
+    const { err, success } = MySnackbar()
 
     function dateToEN(date)
     {	
@@ -48,12 +46,12 @@ export default function Register() {
         
         const resp = await Http.createLogin(login);
         
-        if(resp?.status == 201){
+        if(resp?.status === 201){
             success('Usuário criado com Sucesso!')
             navigate('/login')
         }else{
-            err(guests?.response?.data[0]?.mensagemUsuario);
-            resp.response.status == 401 && navigate('/login')
+            err(resp?.response?.data[0]?.mensagemUsuario);
+            resp.response.status === 401 && navigate('/login')
         }
     };
 
