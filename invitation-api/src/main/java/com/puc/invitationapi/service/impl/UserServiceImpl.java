@@ -7,6 +7,9 @@ import com.puc.invitationapi.mappers.UserMapper;
 import com.puc.invitationapi.repository.UserRepository;
 import com.puc.invitationapi.service.GuestService;
 import com.puc.invitationapi.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -20,6 +23,9 @@ public class UserServiceImpl implements UserService {
 
     private final GuestService guestService;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     public UserServiceImpl(UserRepository userRepository, GuestService guestService) {
         this.userRepository = userRepository;
         this.guestService = guestService;
@@ -30,7 +36,9 @@ public class UserServiceImpl implements UserService {
         validateUserEmail(dto);
         User user = UserMapper.MAPPER.toUser(dto);
         user.setDtRegister(LocalDateTime.now());
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         user = userRepository.save(user);
+        user.setPassword(null);
         return UserMapper.MAPPER.fromUser(user);
     }
 
