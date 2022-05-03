@@ -19,12 +19,14 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
 import Http from '~/config/Http';
 import moment from 'moment';
+import { MySnackbar } from '~/components/snackbar/index';
 
 const theme = createTheme();
 
 export default function Register() {
     let navigate = useNavigate();
     const [value, setValue] = React.useState(new Date());
+    const { alert, err, info, success } = MySnackbar()
 
     function dateToEN(date)
     {	
@@ -46,7 +48,13 @@ export default function Register() {
         
         const resp = await Http.createLogin(login);
         
-        resp && navigate('/login');
+        if(resp?.status == 201){
+            success('Usuário criado com Sucesso!')
+            navigate('/login')
+        }else{
+            err(guests?.response?.data[0]?.mensagemUsuario);
+            resp.response.status == 401 && navigate('/login')
+        }
     };
 
     return (

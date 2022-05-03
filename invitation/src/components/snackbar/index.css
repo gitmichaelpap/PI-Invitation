@@ -1,0 +1,11 @@
+.iconSnack {
+    opacity: 0.9;
+    margin-right: 10px;
+}
+
+.snacktext {
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    font-size: 1em;
+}

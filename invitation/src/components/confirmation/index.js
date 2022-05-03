@@ -9,11 +9,12 @@ import Typography from '@mui/material/Typography';
 import { useNavigate } from 'react-router-dom';
 import moment from 'moment';
 import Http from '~/config/Http';
+import { MySnackbar } from '~/components/snackbar/index';
 
 export default function Confirmation() {
   let navigate = useNavigate();
-
   const [rows, setRows] = React.useState([]);
+  const { alert, err, info, success } = MySnackbar()
 
   React.useEffect(() => {
       getGuests();
@@ -22,10 +23,15 @@ export default function Confirmation() {
   const getGuests = async () => {
     let guests = await Http.getAllGuests();
 
-    guests = guests.data?.filter(f => f.confirmation)
+    if(guests?.status == 200){
+      guests = guests.data?.filter(f => f.confirmation)
       .sort((x, y) => moment(y.confirmationDate) - moment(x.confirmationDate) );
 
-    setRows(guests);
+      setRows(guests);
+    }else{
+        err(guests?.response?.data[0]?.mensagemUsuario);
+        guests.response.status == 401 && navigate('/login')
+    }
   }
   
   return (

@@ -10,14 +10,16 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import { FormControlLabel, Radio, RadioGroup } from '@mui/material';
 import { Input } from '@material-ui/core';
-
+import { MySnackbar } from '~/components/snackbar/index';
 import Http from '~/config/Http';
+import { useNavigate } from 'react-router-dom';
 
 export default function DataTable() {
     const methods = useForm();
-
+    const { alert, err, info, success } = MySnackbar()
     const [rows, setRows] = React.useState([]);
     const [value, setValue] = React.useState('');
+    let navigate = useNavigate();
 
     React.useEffect(() => {
         getGuests();
@@ -25,15 +27,32 @@ export default function DataTable() {
 
     const getGuests = async () => {
         const guests = await Http.getAllGuests();
-        setRows(guests.data?.reverse());
+        if(guests?.status == 200){
+            setRows(guests.data?.reverse());
+          }else{
+              err(guests?.response?.data[0]?.mensagemUsuario);
+              guests.response.status == 401 && navigate('/login');
+          }
     }
 
     const createGuest = async (newGuest) => {
-        await Http.createGuest(newGuest);
+        const guests = await Http.createGuest(newGuest);
+        if(guests?.status == 201){
+            success('Convidado criado com Sucesso!');
+          }else{
+              err(guests?.response?.data[0]?.mensagemUsuario);
+              guests.response.status == 401 && navigate('/login');
+          }
     }
 
     const updateGuest = async (guest) => {
-        await Http.updateGuest(guest.id, guest);
+        const guests = await Http.updateGuest(guest.id, guest);
+        if(guests?.status == 200){
+            success('Convidado alterado com Sucesso!');
+          }else{
+              err(guests?.response?.data[0]?.mensagemUsuario);
+              guests.response.status == 401 && navigate('/login');
+          }
     }
 
     const editUser = async (guest) => {
@@ -43,8 +62,14 @@ export default function DataTable() {
     }
 
     const deleteUser = async (guest) => {
-        await Http.removeGuest(guest.id);
-        getGuests();
+        const guests = await Http.removeGuest(guest.id);
+        if(guests?.status == 200){
+            success('Convidado removido com Sucesso!');
+            getGuests();
+          }else{
+              err(guests?.response?.data[0]?.mensagemUsuario);
+              guests.response.status == 401 && navigate('/login');
+          }
     }
 
     const onSubmit = async (values) => {
@@ -61,6 +86,7 @@ export default function DataTable() {
         newGuest?.id ? await updateGuest(newGuest) : await createGuest(newGuest);
 
         methods.setValue('guest', '');
+        methods.setValue('id', '');
         setValue('')
         getGuests();
     };
@@ -104,11 +130,11 @@ export default function DataTable() {
                             alignContent: 'center',
                         }}
                     >
-                        <TextField name="guest" label="Convidado"  {...methods.register('guest')} />
+                        <TextField name="guest" label="Convidado"  {...methods.register('guest')} required />
                         <RadioGroup aria-labelledby="demo-radio-buttons-group-label" name="host" row value={value} onChange={(e) => setValue(e.target.value)}>
-                            <FormControlLabel value="fiancee" control={<Radio />} label="Noiva" {...methods.register('host')}/>
-                            <FormControlLabel value="fiance" control={<Radio />} label="Noivo" {...methods.register('host')}/>
-                            <FormControlLabel value="couple" control={<Radio />} label="Casal" {...methods.register('host')}/>
+                            <FormControlLabel value="fiancee" control={<Radio required/>} label="Noiva" {...methods.register('host')} />
+                            <FormControlLabel value="fiance" control={<Radio required/>} label="Noivo" {...methods.register('host')} />
+                            <FormControlLabel value="couple" control={<Radio required/>} label="Casal" {...methods.register('host')} />
                         </RadioGroup>
                         <Input type="hidden" name="id" label="id" {...methods.register('id')} />
                         <Button type="submit" variant="contained" sx={{ mt: 3, mb: 2 }}>

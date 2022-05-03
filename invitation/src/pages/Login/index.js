@@ -14,12 +14,14 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
 import { UserContext } from '~/common/contexts/User';
 import Http from '~/config/Http';
+import { MySnackbar } from '~/components/snackbar/index';
 
 const theme = createTheme();
 
 export default function Login() {
     let navigate = useNavigate();
     const { setEngaged, setWeddingDay, setDtRegister } = useContext(UserContext);
+    const { alert, err, info, success } = MySnackbar()
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -32,14 +34,16 @@ export default function Login() {
         };
 
         const resp = await Http.getLogin(login);
-        console.log(resp);
-        if(resp){
-            localStorage.setItem('user', JSON.stringify(resp?.user));
-            setEngaged(`${resp?.user.fiancee} & ${resp?.user.fiance}`);
-            setWeddingDay(new Date(resp?.user.weddingDay));
-            setDtRegister(new Date(resp?.user.dtRegister));
+        if(resp?.status == 200){
+            localStorage.setItem('user', JSON.stringify(resp?.data?.user));
+            setEngaged(`${resp?.data?.user.fiancee} & ${resp?.data?.user.fiance}`);
+            setWeddingDay(new Date(resp?.data?.user.weddingDay));
+            setDtRegister(new Date(resp?.data?.user.dtRegister));
             navigate('/home');
-        };
+        }else{
+            err(guests?.response?.data[0]?.mensagemUsuario);
+            resp.response.status == 401 && navigate('/login')
+        }
     };
 
     return (

@@ -2,10 +2,14 @@ import * as React from 'react';
 import { Typography } from '@mui/material';
 import moment from 'moment';
 import Http from '~/config/Http';
+import { MySnackbar } from '~/components/snackbar/index';
+import { useNavigate } from 'react-router-dom';
 
 export default function TotalGuests() {
   const [guestConfirmed, setGuestConfirmed] = React.useState(0);
   const [guestTotal, setGuestsTotal] = React.useState(0);
+  const { alert, err, info, success } = MySnackbar()
+  let navigate = useNavigate();
 
   React.useEffect(() => {
       getGuests();
@@ -14,13 +18,17 @@ export default function TotalGuests() {
   const getGuests = async () => {
     let guests = await Http.getAllGuests();
 
+    if(guests?.status == 200){
+      setGuestsTotal(guests.data.length);
 
-    setGuestsTotal(guests.data.length);
-
-    guests = guests.data?.filter(f => f.confirmation)
-      .sort((x, y) => moment(y.confirmationDate) - moment(x.confirmationDate) );
-
+      guests = guests.data?.filter(f => f.confirmation)
+        .sort((x, y) => moment(y.confirmationDate) - moment(x.confirmationDate) );
+  
       setGuestConfirmed(guests.length);
+    }else{
+        err(guests?.response?.data[0]?.mensagemUsuario);
+        guests.response.status == 401 && navigate('/login')
+    }
   }
 
   return (

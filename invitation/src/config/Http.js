@@ -16,23 +16,23 @@ export default class Http {
         return api.post(`/v1.0/login`,login)
             .then(function (response) {
                 console.log(response);
-                return response.data;
+                return response;
             })
             .catch(function (error) {
-                console.error(error);
-                return false;
+                console.log(error);
+                return error;
             });
     };
-
+        
     static createLogin = (user) => {
-        return api.post("/v1.0/login", user)
+            return api.post("/v1.0/user", user)
             .then(function (response) {
                 console.log(response);
-                return true;
+                return response;
             })
             .catch(function (error) {
-                console.error(error);
-                return false;
+                console.log(error);
+                return error;
             });
     };
 
@@ -48,7 +48,8 @@ export default class Http {
                 return response;
             })
             .catch(function (error) {
-                console.error(error);
+                console.log(error);
+                return error;
             });
     };
 
@@ -59,7 +60,8 @@ export default class Http {
                 return response;
             })
             .catch(function (error) {
-                console.error(error);
+                console.log(error);
+                return error;
             });
     };
 
@@ -71,7 +73,8 @@ export default class Http {
                 return response;
             })
             .catch(function (error) {
-                console.error(error);
+                console.log(error);
+                return error;
             });
     };
 
@@ -83,7 +86,8 @@ export default class Http {
                 return response;
             })
             .catch(function (error) {
-                console.error(error);
+                console.log(error);
+                return error;
             });
     };
 
@@ -94,7 +98,8 @@ export default class Http {
                 return response;
             })
             .catch(function (error) {
-                console.error(error);
+                console.log(error);
+                return error;
             });
     };
 
@@ -105,7 +110,8 @@ export default class Http {
                 return response;
             })
             .catch(function (error) {
-                console.error(error);
+                console.log(error);
+                return error;
             });
     };
 
@@ -132,7 +138,8 @@ export default class Http {
             return response;
         })
         .catch(function (error) {
-            console.error(error);
+                console.log(error);
+                return error;
         });
 
     };
@@ -144,9 +151,12 @@ export default class Http {
                 return response;
             })
             .catch(function (error) {
-                console.error(error);
+                console.log(error);
+                return error;
             });
     };
 
     //#endregion Invitation --- Fim
 }
+
+
