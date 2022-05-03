@@ -14,7 +14,7 @@ import { MySnackbar } from '~/components/snackbar/index';
 export default function Confirmation() {
   let navigate = useNavigate();
   const [rows, setRows] = React.useState([]);
-  const { alert, err, info, success } = MySnackbar()
+  const { err } = MySnackbar()
 
   React.useEffect(() => {
       getGuests();
@@ -23,14 +23,14 @@ export default function Confirmation() {
   const getGuests = async () => {
     let guests = await Http.getAllGuests();
 
-    if(guests?.status == 200){
+    if(guests?.status === 200){
       guests = guests.data?.filter(f => f.confirmation)
       .sort((x, y) => moment(y.confirmationDate) - moment(x.confirmationDate) );
 
       setRows(guests);
     }else{
         err(guests?.response?.data[0]?.mensagemUsuario);
-        guests.response.status == 401 && navigate('/login')
+        guests?.response?.status === 401 && navigate('/login')
     }
   }
   

@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "http://localhost:8080",
+  baseURL: "https://invitation-api-puc.herokuapp.com",
   headers: {
     "Content-type": "application/json"
   }
@@ -23,11 +23,9 @@ export default class Http {
     static getLogin = (login) => {
         return api.post(`/v1.0/login`,login)
             .then(function (response) {
-                console.log(response);
                 return response;
             })
             .catch(function (error) {
-                console.log(error);
                 return error;
             });
     };
@@ -35,11 +33,9 @@ export default class Http {
     static createLogin = (user) => {
             return api.post("/v1.0/user", user)
             .then(function (response) {
-                console.log(response);
                 return response;
             })
             .catch(function (error) {
-                console.log(error);
                 return error;
             });
     };
@@ -53,11 +49,9 @@ export default class Http {
         const user = JSON.parse(localStorage.getItem('user'))
         return api.get(`/v1.0/guest/user/${user.id}`, Http.getHeader())
             .then(function (response) {
-                console.log(response);
                 return response;
             })
             .catch(function (error) {
-                console.log(error);
                 return error;
             });
     };
@@ -65,11 +59,9 @@ export default class Http {
     static getGuest = id => {
         return api.get(`/v1.0/guest/${id}`, Http.getHeader())
             .then(function (response) {
-                console.log(response);
                 return response;
             })
             .catch(function (error) {
-                console.log(error);
                 return error;
             });
     };
@@ -78,11 +70,9 @@ export default class Http {
         data.user = JSON.parse(localStorage.getItem('user'));
         return api.post("/v1.0/guest", data, Http.getHeader())
             .then(function (response) {
-                console.log(response);
                 return response;
             })
             .catch(function (error) {
-                console.log(error);
                 return error;
             });
     };
@@ -91,11 +81,9 @@ export default class Http {
         data.user = JSON.parse(localStorage.getItem('user'));
         return api.put(`/v1.0/guest/${id}`, data, Http.getHeader())
             .then(function (response) {
-                console.log(response);
                 return response;
             })
             .catch(function (error) {
-                console.log(error);
                 return error;
             });
     };
@@ -103,11 +91,9 @@ export default class Http {
     static removeGuest = (id) => {
         return api.delete(`/v1.0/guest/${id}`, Http.getHeader())
             .then(function (response) {
-                console.log(response);
                 return response;
             })
             .catch(function (error) {
-                console.log(error);
                 return error;
             });
     };
@@ -115,11 +101,9 @@ export default class Http {
     static removeAllGuests = () => {
         return api.delete(`/v1.0/guest`, Http.getHeader())
             .then(function (response) {
-                console.log(response);
                 return response;
             })
             .catch(function (error) {
-                console.log(error);
                 return error;
             });
     };
@@ -143,11 +127,9 @@ export default class Http {
             }
         )
         .then(function (response) {
-            console.log(response);
             return response;
         })
         .catch(function (error) {
-                console.log(error);
                 return error;
         });
 
@@ -156,11 +138,9 @@ export default class Http {
     static getFiles = id => {
         return api.get(`/v1.0/invitation/${id}`)
             .then(function (response) {
-                console.log(response);
                 return response;
             })
             .catch(function (error) {
-                console.log(error);
                 return error;
             });
     };
