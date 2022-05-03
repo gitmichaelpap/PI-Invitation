@@ -1,14 +1,14 @@
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
-    username: invitation
-    password: 1234
-    url: jdbc:postgresql://postgres-compose:5432/invitation
+    username: lflyvaclgjdzqw
+    password: 1739fcc51aee05522998eea17b87f672ff668814576d40a462011322a1232012
+    url: jdbc:postgresql://ec2-54-80-122-11.compute-1.amazonaws.com:5432/ddavs8qgd8ds5e
   flyway:
     baseline-on-migrate: true
-    url: jdbc:postgresql://postgres-compose:5432/invitation?createDatabaseIfNotExist=true
-    user: invitation
-    password: 1234
+    url: jdbc:postgresql://ec2-54-80-122-11.compute-1.amazonaws.com:5432/ddavs8qgd8ds5e?createDatabaseIfNotExist=true
+    user: lflyvaclgjdzqw
+    password: 1739fcc51aee05522998eea17b87f672ff668814576d40a462011322a1232012
     schemas:
       - invitation
 
