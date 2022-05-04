@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { Typography } from '@mui/material';
 import moment from 'moment';
-import Http from '~/config/Http';
-import { MySnackbar } from '~/components/snackbar/index';
+import Http from '../../config/Http';
+import { MySnackbar } from '../../components/snackbar/index';
 import { useNavigate } from 'react-router-dom';
 
 export default function TotalGuests() {

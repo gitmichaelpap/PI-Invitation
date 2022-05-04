@@ -1,9 +1,9 @@
 import * as React from 'react';
-import { useTheme } from '@mui/material/styles';
-import { LineChart, Line, XAxis, YAxis, Label, ResponsiveContainer } from 'recharts';
-import { Typography } from '@mui/material';
-import { UserContext } from '~/common/contexts/User';
 import moment from 'moment';
+import { LineChart, Line, XAxis, YAxis, Label, ResponsiveContainer } from 'recharts';
+import { useTheme } from '@mui/material/styles';
+import { Typography } from '@mui/material';
+import { UserContext } from '../../common/contexts/User';
 
 function createData(time, amount) {
   return { time, amount };

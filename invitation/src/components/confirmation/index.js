@@ -8,8 +8,8 @@ import TableRow from '@mui/material/TableRow';
 import Typography from '@mui/material/Typography';
 import { useNavigate } from 'react-router-dom';
 import moment from 'moment';
-import Http from '~/config/Http';
-import { MySnackbar } from '~/components/snackbar/index';
+import Http from '../../config/Http';
+import { MySnackbar } from '../../components/snackbar/index';
 
 export default function Confirmation() {
   let navigate = useNavigate();

@@ -1,5 +1,5 @@
 import React from 'react';
-import App from '~/containers/App';
+import App from '../../containers/App';
 import './index.css';
 import UploadFiles from "../../components/upLoad/UploadFiles"
 

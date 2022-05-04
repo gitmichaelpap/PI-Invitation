@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { SnackbarProvider } from "notistack";
-import Routes from '~/components/Routes';
+import Routes from '../components/Routes';
 
 const Root = () => (
     <SnackbarProvider>

@@ -15,9 +15,9 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
-import Http from '~/config/Http';
+import Http from '../../config/Http';
 import moment from 'moment';
-import { MySnackbar } from '~/components/snackbar/index';
+import { MySnackbar } from '../../components/snackbar/index';
 
 const theme = createTheme();
 
