@@ -1,9 +1,9 @@
 import React from 'react';
-import App from '~/containers/App';
-import Deposits from '~/components/deposits';
-import Chart from '~/components/chart';
-import Confirmation from '~/components/confirmation';
-import TotalGuests from '~/components/totalGuests';
+import App from '../../containers/App';
+import Deposits from '../../components/deposits';
+import Chart from '../../components/chart';
+import Confirmation from '../../components/confirmation';
+import TotalGuests from '../../components/totalGuests';
 import { Container, Grid, Paper } from '@mui/material';
 
 const Home = () => (

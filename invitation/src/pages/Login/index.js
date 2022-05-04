@@ -10,9 +10,9 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
-import { UserContext } from '~/common/contexts/User';
-import Http from '~/config/Http';
-import { MySnackbar } from '~/components/snackbar/index';
+import { UserContext } from '../../common/contexts/User';
+import Http from '../../config/Http';
+import { MySnackbar } from '../../components/snackbar/index';
 
 const theme = createTheme();
 

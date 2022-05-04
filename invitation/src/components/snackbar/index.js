@@ -2,7 +2,7 @@ import React from 'react';
 import { useSnackbar } from "notistack";
 import { IconButton, SnackbarContent } from '@material-ui/core';
 import { CheckCircle, Close as CloseIcon, Error, Info, Warning } from '@material-ui/icons';
-import '~/components/snackbar/index.css';
+import '../snackbar/index.css';
 
 const colors = {
   primary: '#0077b5', //$blue-font

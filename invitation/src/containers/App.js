@@ -16,8 +16,8 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Paper from '@mui/material/Paper';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import NotificationsIcon from '@mui/icons-material/Notifications';
-import Menu from '~/components/menu';
-import { UserContext } from '~/common/contexts/User';
+import Menu from '../components/menu';
+import { UserContext } from '../common/contexts/User';
 
 const drawerWidth = 240;
 

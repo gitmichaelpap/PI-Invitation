@@ -9,7 +9,7 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import { CardActionArea } from '@mui/material';
-import Http from "~/config/Http";
+import Http from "../../config/Http";
 
 const BorderLinearProgress = withStyles((theme) => ({
   root: {

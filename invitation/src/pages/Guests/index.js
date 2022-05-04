@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 import { DataGrid, GridActionsCellItem } from '@mui/x-data-grid';
-import App from '~/containers/App';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Grid from '@mui/material/Grid';
@@ -10,9 +10,9 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import { FormControlLabel, Radio, RadioGroup } from '@mui/material';
 import { Input } from '@material-ui/core';
-import { MySnackbar } from '~/components/snackbar/index';
-import Http from '~/config/Http';
-import { useNavigate } from 'react-router-dom';
+import App from '../../containers/App';
+import { MySnackbar } from '../../components/snackbar/index';
+import Http from '../../config/Http';
 
 export default function DataTable() {
     const methods = useForm();

@@ -1,13 +1,13 @@
 import React from 'react';
 import { BrowserRouter, Routes as ReactRoutes, Route } from 'react-router-dom';
-import UserProvider from '~/common/contexts/User';
+import UserProvider from '../common/contexts/User';
 
-import Login from '~/pages/Login';
-import Register from '~/pages/Register';
-import Home from '~/pages/Home';
-import NotFound from '~/pages/NotFound';
-import Invitation from '~/pages/Invitation';
-import Guests from '~/pages/Guests';
+import Login from '../pages/Login';
+import Register from '../pages/Register';
+import Home from '../pages/Home';
+import NotFound from '../pages/NotFound';
+import Invitation from '../pages/Invitation';
+import Guests from '../pages/Guests';
 
 const Routes = () => (
     <BrowserRouter>
