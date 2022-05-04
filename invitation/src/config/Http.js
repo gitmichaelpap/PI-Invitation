@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "https://invitation-api-puc.herokuapp.com",
+  baseURL: "https://api-invitation-pi.herokuapp.com",
   headers: {
     "Content-type": "application/json"
   }
@@ -29,7 +29,7 @@ export default class Http {
                 return error;
             });
     };
-        
+
     static createLogin = (user) => {
             return api.post("/v1.0/user", user)
             .then(function (response) {
