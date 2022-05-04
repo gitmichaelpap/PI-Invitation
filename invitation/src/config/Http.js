@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "http://localhost:8080",
+  baseURL: "https://api-invitation-pi.herokuapp.com",
   headers: {
     "Content-type": "application/json"
   }
