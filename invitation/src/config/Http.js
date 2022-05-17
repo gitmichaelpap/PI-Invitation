@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "http://localhost:3000",
+  baseURL: "http://localhost:4000",
   headers: {
     "Content-type": "application/json"
   }
@@ -21,7 +21,7 @@ export default class Http {
     //#region Login --- Inicio
 
     static getLogin = (login) => {
-        return api.post(`/login`,login)
+        return api.post(`/user/login`, login)
             .then(function (response) {
                 return response;
             })
@@ -30,8 +30,8 @@ export default class Http {
             });
     };
 
-    static createLogin = (user) => {
-            return api.post("/user", user)
+    static createLogin = (register) => {
+            return api.post(`/user/register`, register)
             .then(function (response) {
                 return response;
             })
@@ -90,16 +90,6 @@ export default class Http {
 
     static removeGuest = (id) => {
         return api.delete(`/guest/${id}`, Http.getHeader())
-            .then(function (response) {
-                return response;
-            })
-            .catch(function (error) {
-                return error;
-            });
-    };
-
-    static removeAllGuests = () => {
-        return api.delete(`/guest`, Http.getHeader())
             .then(function (response) {
                 return response;
             })
