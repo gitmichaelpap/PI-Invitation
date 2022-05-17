@@ -3,11 +3,11 @@ const httpProxy = require('express-http-proxy');
 const app = express();
 const port = 3000;
 const {
-  USERS_API_URL,
+  USER_API_URL,
   GUEST_API_URL,
 } = require('./URLs');
 
-const userServiceProxy = httpProxy(USERS_API_URL);
+const USERerviceProxy = httpProxy(USER_API_URL);
 const guestServiceProxy = httpProxy(GUEST_API_URL);
 
 app.use(express.json());
@@ -15,7 +15,7 @@ app.use(express.urlencoded());
 
 app.get('/', (req, res) => res.send('Hello Gateway API'));
 
-app.get('/users', (req, res, next) => userServiceProxy(req, res, next));
+app.get('/user', (req, res, next) => USERerviceProxy(req, res, next));
 
 app.get('/guest', (req, res, next) => guestServiceProxy(req, res, next));
 

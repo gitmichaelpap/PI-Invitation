@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "http://localhost:8080",
+  baseURL: "http://localhost:3000",
   headers: {
     "Content-type": "application/json"
   }
@@ -21,7 +21,7 @@ export default class Http {
     //#region Login --- Inicio
 
     static getLogin = (login) => {
-        return api.post(`/v1.0/login`,login)
+        return api.post(`/login`,login)
             .then(function (response) {
                 return response;
             })
@@ -31,7 +31,7 @@ export default class Http {
     };
 
     static createLogin = (user) => {
-            return api.post("/v1.0/user", user)
+            return api.post("/user", user)
             .then(function (response) {
                 return response;
             })
@@ -47,7 +47,7 @@ export default class Http {
     static getAllGuests = () => {
 
         const user = JSON.parse(localStorage.getItem('user'))
-        return api.get(`/v1.0/guest/user/${user.id}`, Http.getHeader())
+        return api.get(`/guest/user/${user.id}`, Http.getHeader())
             .then(function (response) {
                 return response;
             })
@@ -57,7 +57,7 @@ export default class Http {
     };
 
     static getGuest = id => {
-        return api.get(`/v1.0/guest/${id}`, Http.getHeader())
+        return api.get(`/guest/${id}`, Http.getHeader())
             .then(function (response) {
                 return response;
             })
@@ -68,7 +68,7 @@ export default class Http {
 
     static createGuest = (data) => {
         data.user = JSON.parse(localStorage.getItem('user'));
-        return api.post("/v1.0/guest", data, Http.getHeader())
+        return api.post("/guest", data, Http.getHeader())
             .then(function (response) {
                 return response;
             })
@@ -79,7 +79,7 @@ export default class Http {
 
     static updateGuest = (id, data) => {
         data.user = JSON.parse(localStorage.getItem('user'));
-        return api.put(`/v1.0/guest/${id}`, data, Http.getHeader())
+        return api.put(`/guest/${id}`, data, Http.getHeader())
             .then(function (response) {
                 return response;
             })
@@ -89,7 +89,7 @@ export default class Http {
     };
 
     static removeGuest = (id) => {
-        return api.delete(`/v1.0/guest/${id}`, Http.getHeader())
+        return api.delete(`/guest/${id}`, Http.getHeader())
             .then(function (response) {
                 return response;
             })
@@ -99,7 +99,7 @@ export default class Http {
     };
 
     static removeAllGuests = () => {
-        return api.delete(`/v1.0/guest`, Http.getHeader())
+        return api.delete(`/guest`, Http.getHeader())
             .then(function (response) {
                 return response;
             })
@@ -136,7 +136,7 @@ export default class Http {
     };
 
     static getFiles = id => {
-        return api.get(`/v1.0/invitation/${id}`)
+        return api.get(`/invitation/${id}`)
             .then(function (response) {
                 return response;
             })
