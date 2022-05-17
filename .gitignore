@@ -57,3 +57,6 @@ build/
 ### VS Code ###
 .vscode/
 
+invitation-api-node/gatewayAPI/node_modules/
+invitation-api-node/userAPI/node_modules/
+invitation-api-node/guestAPI/node_modules/

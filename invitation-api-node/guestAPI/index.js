@@ -1,4 +1,6 @@
 const app = require('express')();
+const cors = require ('cors');
+app.use(cors());
 
 app.get('/guest', (req, res) => res.send('Hello Guest API'));
 
