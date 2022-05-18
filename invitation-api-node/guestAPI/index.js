@@ -111,3 +111,4 @@ app.delete('/guest/:id', (req, res, next) => {
 });
 
 app.listen(3002, () => console.log(`Guest API listening on port 3002!`));
+
