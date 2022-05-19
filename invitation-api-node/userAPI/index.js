@@ -19,7 +19,7 @@ app.use(express.json());
 app.use(express.urlencoded());
 
 
-app.post ('/user/register', express.json(), (req, res) => {
+app.post ('/user/register', (req, res) => {
     knex ('usuario')
     .insert({
         nome: req.body.nome,
@@ -38,7 +38,7 @@ app.post ('/user/register', express.json(), (req, res) => {
     })
 })
 
-app.post('/user/login', express.json(), (req, res) => {
+app.post('/user/login', (req, res) => {
     knex
     .select('*').from('usuario').where( { login: req.body.login })
     .then( usuarios => {
