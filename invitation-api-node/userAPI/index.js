@@ -13,23 +13,23 @@ const knex = require('knex')({
     }
 });
 
-
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded());
 
-
 app.post ('/user/register', express.json(), (req, res) => {
-    knex ('usuario')
+    knex ('user')
     .insert({
-        nome: req.body.nome,
-        login: req.body.login,
-        senha: bcrypt.hashSync(req.body.senha, 8),
-        email: req.body.email
+        fiancee: req.body.fiancee,
+        fiance: req.body.fiance,
+        weddingDay: req.body.weddingDay,
+        password: bcrypt.hashSync(req.body.password, 8),
+        email: req.body.email,
+        dtRegister: req.body.dtRegister
     }, ['id'])
     .then((result) => {
-        let usuario = result[0]
-        res.status(200).json({"id": usuario.id })
+        let user = result[0]
+        res.status(200).json({"id": user.id })
         return
     })
     .catch(err => {
@@ -40,18 +40,17 @@ app.post ('/user/register', express.json(), (req, res) => {
 
 app.post('/user/login', express.json(), (req, res) => {
     knex
-    .select('*').from('usuario').where( { login: req.body.login })
-    .then( usuarios => {
-    if(usuarios.length){
-        let usuario = usuarios[0]
-        let checkSenha = bcrypt.compareSync (req.body.senha, usuario.senha)
-        if (checkSenha) {
-            var tokenJWT = jwt.sign({ id: usuario.id }, process.env.SECRET_KEY, {expiresIn: 3600, algorithm: 'HS256'})
+    .select('*').from('user').where( { email: req.body.email })
+    .then( users => {
+    if(users.length){
+        let user = users[0]
+        let checkPassword = bcrypt.compareSync (req.body.password, user.password)
+        if (checkPassword) {
+            var tokenJWT = jwt.sign({ id: user.id }, process.env.SECRET_KEY, {expiresIn: 3600, algorithm: 'HS256'})
             res.status(200).json ({
-                id: usuario.id,
-                login: usuario.login,
-                nome: usuario.nome,
-                roles: usuario.roles,
+                id: user.id,
+                email: user.email,
+                fiance: user.fiance,
                 token: tokenJWT
             })
             return
