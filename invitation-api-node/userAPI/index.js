@@ -18,24 +18,26 @@ app.use(express.json());
 app.use(express.urlencoded());
 
 app.post("/user/register", (req, res) => {
-  knex("usuario")
+  knex("user")
     .insert(
       {
-        nome: req.body.nome,
-        login: req.body.login,
-        senha: bcrypt.hashSync(req.body.senha, 8),
+        data_register: req.body.dtRegister,
         email: req.body.email,
+        fiance: req.body.fiance,
+        fiancee: req.body.fiancee,
+        password: bcrypt.hashSync(req.body.password, 8),
+        wedding_day: req.body.weddingDay,
       },
       ["id"]
     )
     .then((result) => {
       let usuario = result[0];
-      res.status(200).json({ id: usuario.id });
+      res.status(201).json({ id: usuario.id });
       return;
     })
     .catch((err) => {
       res.status(500).json({
-        message: "Erro ao registrar usuario - " + err.message,
+        mensagemUsuario: "Erro ao registrar usuario - " + err.message,
       });
     });
 });
@@ -43,32 +45,38 @@ app.post("/user/register", (req, res) => {
 app.post("/user/login", (req, res) => {
   knex
     .select("*")
-    .from("usuario")
-    .where({ login: req.body.login })
-    .then((usuarios) => {
-      if (usuarios.length) {
-        let usuario = usuarios[0];
-        let checkSenha = bcrypt.compareSync(req.body.senha, usuario.senha);
+    .from("user")
+    .where({ email: req.body.email })
+    .then((user) => {
+      if (user.length) {
+        let usuario = user[0];
+        let checkSenha = bcrypt.compareSync(
+          req.body.password,
+          usuario.password
+        );
         if (checkSenha) {
           var tokenJWT = jwt.sign({ id: usuario.id }, process.env.SECRET_KEY, {
             expiresIn: 3600,
             algorithm: "HS256",
           });
           res.status(200).json({
-            id: usuario.id,
-            login: usuario.login,
-            nome: usuario.nome,
-            roles: usuario.roles,
-            token: tokenJWT,
+            user: {
+              id: usuario.id,
+              fiancee: usuario.fiancee,
+              fiance: usuario.fiance,
+              weddingDay: usuario.wedding_day,
+              dtRegister: usuario.data_register,
+            },
+            acessToken: tokenJWT,
           });
           return;
         }
       }
-      res.status(200).json({ message: "Login ou senha incorretos" });
+      res.status(200).json({ mensagemUsuario: "Login ou senha incorretos" });
     })
     .catch((err) => {
       res.status(500).json({
-        message: "Erro ao verificar login - " + err.message,
+        mensagemUsuario: "Erro ao verificar login - " + err.message,
       });
     });
 });

@@ -20,56 +20,55 @@ app.get("/guest/user/:id", (req, res, next) => {
 
   knex
     .select("*")
-    .from("produto")
-    .where("id", id)
+    .from("guest")
+    .where("id_user", "=", id)
     .then((guest) =>
       guest.length
         ? res.status(200).json(guest)
-        : res.status(404).json({
-            message: "Produto não encontrado",
+        : res.status(204).json({
+            mensagemUsuario: "Nenhum convidado cadastrado! ",
           })
     )
     .catch((err) => {
       res.status(500).json({
-        message: "Erro ao recuperar guest - " + err.message,
+        mensagemUsuario: "Erro ao recuperar guest - " + err.message,
       });
     });
 });
 
 app.get("/guest/:id", (req, res) => {
+  let id = parseInt(req.params.id);
   knex
     .select("*")
-    .from("produto")
+    .from("guest")
+    .where("id", "=", id)
     .then((guest) => res.status(200).json(guest))
     .catch((err) => {
       res.status(500).json({
-        message: "Erro ao recuperar guest - " + err.message,
+        mensagemUsuario: "Erro ao recuperar guest - " + err.message,
       });
     });
 });
 
 app.post("/guest", (req, res, next) => {
-  knex("produto")
+  knex("guest")
     .insert(
       {
-        descricao: req.body.descricao,
-        marca: req.body.marca,
-        valor: req.body.valor,
+        confirmation: req.body.confirmation,
+        guest: req.body.guest,
+        host: req.body.host,
+        qrcode: req.body.qrcode,
+        id_user: req.body.user.id,
       },
       ["id"]
     )
     .then((resultado) => {
-      let produto = resultado[0];
-      res.status(201).json({
-        id: produto.id,
-        descricao: req.body.descricao,
-        marca: req.body.marca,
-        valor: req.body.valor,
-      });
+      let guestNew = resultado[0];
+      res.status(201).json({ id: guestNew.id });
     })
     .catch((err) => {
       res.status(500).json({
-        message: "Erro ao inserir produto! - " + err.message,
+        mensagemUsuario: "Erro ao inserir convidado! - " + err.message,
       });
     });
 });
@@ -77,29 +76,25 @@ app.post("/guest", (req, res, next) => {
 app.put("/guest/:id", (req, res, next) => {
   let id = parseInt(req.params.id);
 
-  knex("produto")
+  knex("guest")
     .where("id", "=", id)
     .update(
       {
-        id: id,
-        descricao: req?.body?.descricao,
-        marca: req?.body?.marca,
-        valor: req?.body?.valor,
+        confirmation: req.body.confirmation,
+        guest: req.body.guest,
+        host: req.body.host,
+        qrcode: req.body.qrcode,
+        id_user: req.body.user.id,
       },
-      ["id", "descricao", "marca", "valor"]
+      ["id"]
     )
     .then((resultado) => {
-      let produto = resultado[0];
-      res.status(204).json({
-        id: produto.id,
-        descricao: produto.descricao,
-        marca: produto.marca,
-        valor: produto.valor,
-      });
+      let guestUpdate = resultado[0];
+      res.status(200).json({ id: guestUpdate.id });
     })
     .catch((err) => {
       res.status(500).json({
-        message: "Erro ao alterar produto! - " + err.message,
+        mensagemUsuario: "Erro ao alterar convidado! - " + err.message,
       });
     });
 });
@@ -107,15 +102,17 @@ app.put("/guest/:id", (req, res, next) => {
 app.delete("/guest/:id", (req, res, next) => {
   let id = parseInt(req.params.id);
 
-  knex("produto")
+  knex("guest")
     .where("id", id)
     .del()
     .then(() =>
-      res.status(200).json({ message: "Produto deletado com sucesso!" })
+      res
+        .status(200)
+        .json({ mensagemUsuario: "Convidado deletado com sucesso!" })
     )
     .catch((err) => {
       res.status(500).json({
-        message: "Erro ao deletar produto! - " + err.message,
+        mensagemUsuario: "Erro ao deletar produto! - " + err.message,
       });
     });
 });
