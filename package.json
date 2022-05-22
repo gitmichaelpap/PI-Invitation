@@ -1,5 +1,5 @@
 {
     "scripts": {
-        "heroku-prebuild": "./heroku.build"
+        "heroku-postbuild": "./heroku.build"
     }
 }
