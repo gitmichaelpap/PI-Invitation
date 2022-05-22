@@ -15,6 +15,10 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded());
 
+app.listen(process.env.PORT || 3000, function(){
+  console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);
+});
+
 app.get("/guest/user/:id", (req, res, next) => {
   let id = parseInt(req.params.id);
 
@@ -117,4 +121,4 @@ app.delete("/guest/:id", (req, res, next) => {
     });
 });
 
-app.listen(3002, () => console.log(`Guest API listening on port 3002!`));
+//app.listen(3002, () => console.log(`Guest API listening on port 3002!`));
